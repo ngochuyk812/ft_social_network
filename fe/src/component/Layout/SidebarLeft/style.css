@@ -1,0 +1,84 @@
+.sidebar_left{
+    flex: 1;
+    grid-area: sideleft;
+}
+
+.top_sidebar_left{
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+
+}
+.top_sidebar_left .avatar_sidebar_left{
+    border-radius: 50%;
+    margin-bottom: 8px;
+}   
+
+.top_sidebar_left >p{
+    padding:2px;
+    margin: 0;
+}
+.top_sidebar_left .fullname_sidebar_left{
+    font-weight: 600;
+}
+.top_sidebar_left .email_sidebar_left{
+    color: rgb(131, 128, 128);
+}
+.top_sidebar_left .profile_summary{
+    margin-top: 20px;
+    text-align: center;
+    color: rgb(131, 128, 128);
+
+}
+
+.top_sidebar_left > ul{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 0;
+}
+
+.top_sidebar_left .item_total > p:nth-child(1){
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 0;
+}
+.top_sidebar_left .item_total > p:nth-child(2){
+   margin-top: 0;
+   color: rgb(131, 128, 128);
+
+}
+.top_sidebar_left > button{
+    padding: 6px 10px;
+    background-color: #00adef;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.center_sidebar_left{
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    padding-right: 0;
+  }
+ul{padding: 0; margin: 0;}
+.center_sidebar_left ul > li{
+    cursor: pointer;
+    padding: 10px 0;
+    padding-left: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+}
+.center_sidebar_left ul > li.active{
+    background-color: #00adef;
+    color: white;
+    transition: all 1s ease;
+
+}

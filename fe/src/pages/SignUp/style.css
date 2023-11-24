@@ -1,0 +1,70 @@
+@keyframes animation {
+    from{
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
+}
+.login_form{
+    animation: animation 1s forwards;
+    padding: 50px 400px;
+    display: flex; 
+    
+}
+.login_form > .backgroud{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+    flex: 1;
+    background-image: url('https://cf.shopee.vn/file/sg-11134201-22110-et8z3vmhzqjv82');
+    background-size: cover;
+}
+.login_form > .login{
+    background-color: white;
+    flex: 1.2;
+    padding: 20px 0 ;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.forgot{
+    text-align: right;
+}
+.main_login{
+    background-color: rgb(240, 240, 240) ;
+
+}
+@media screen and (max-width: 1500px) {
+    .login_form{
+        padding: 50px 250px;
+        
+    }
+    
+   
+  }
+  @media screen and (max-width: 1170px) {
+    .login_form{
+        padding: 50px 100px;
+        
+    }
+    
+   
+  }
+  @media screen and (max-width: 800px) {
+    .login_form{
+        padding: 50px  5px;
+        flex-direction: column;
+        
+    }
+    .forgot{
+        text-align: left;
+    }
+    .login_form .backgroud{
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        min-height: 400px;
+    }
+    .login_form .login{
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+  }

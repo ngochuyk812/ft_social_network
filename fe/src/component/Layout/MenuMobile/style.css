@@ -1,0 +1,35 @@
+.mobile-menu ul{
+    display: flex;
+    justify-content: space-around;
+    
+}
+.mobile-menu ul li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.mobile-menu ul li.active{
+    color: #51c4ff;
+}
+.mobile-menu ul li p{
+    font-weight: 600;
+}
+.mobile-menu ul li.not-active{
+    color: #595959;
+}
+
+.mobile-menu {
+    grid-area: mobile;
+
+}
+.mobile-menu{
+    display: none;
+  }
+
+
+  @media (max-width: 1300px) {
+    .mobile-menu{
+        display: block;
+      }
+  }

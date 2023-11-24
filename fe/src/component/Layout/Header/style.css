@@ -1,0 +1,167 @@
+.header {
+    z-index: 999;
+    background-color: white;
+    grid-area: header;
+}
+
+.nav_main {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 80px;
+    border: 1px solid lightgray;
+}
+.nav_main > img {
+    width: 30px;
+    height: 55px;
+    cursor: pointer;
+}
+.nav_main ul {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+.nav_main ul a {
+    font-size: 14px;
+    text-decoration: none;
+    padding: 0 20px;
+    color: #858484;
+    font-weight: 700;
+}
+.nav_main ul .active {
+    color: black;
+}
+.nav_main .navbar-user {
+    display: flex;
+    align-items: center;
+}
+.nav_main .navbar-user a {
+    padding: 0 10px;
+    color: #9b9b9b;
+}
+.nav_main .navbar-user .menu_mobile {
+    color: #00adef;
+    display: none;
+}
+.nav_main .navbar-user .exits_quantity {
+    position: relative;
+}
+.nav_main .navbar-user .quantity_header {
+    position: absolute;
+    top: -10px;
+    right: 0px;
+    font-size: 13px;
+    background-color: #00adef;
+    padding: 0px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+    font-weight: 550;
+}
+@keyframes mobile_nav {
+    from {
+        width: 0;
+        opacity: 0;
+   }
+    to {
+        width: 100%;
+        opacity: 1;
+   }
+}
+.menu_item_mobile {
+    animation: mobile_nav 1s forwards;
+    position: fixed;
+    padding: 10px;
+    left: 0;
+    right: 0;
+    top: 52px;
+    display: none;
+    flex-direction: column;
+    background-color: white;
+}
+.menu_item_mobile a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 10px;
+}
+.menu_item_mobile .active {
+    color: #00adef;
+}
+
+.search-header{
+    position: relative;
+    text-align: center;
+    margin: 0 40px;
+
+}
+.search-header i{
+    position: absolute;
+    top: 20px;
+    left: 10px;
+}
+
+.search-header input{
+    width: 600px;
+    padding: 10px 20px;
+    padding-left: 30px;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    outline: none;
+    margin-top: 8px;
+    height: 37px;
+}
+@media screen and (max-width: 650px) {
+    .nav_main ul {
+        display: none;
+   }
+    .nav_main .navbar-user .menu_mobile {
+        display: inline;
+   }
+}
+@media screen and (max-width: 800px) {
+    .nav_main {
+        padding: 0px 20px;
+   }
+}
+@keyframes animation_cartmini {
+    from {
+        height: 0;
+   }
+    to {
+        height: 300px;
+   }
+}
+
+
+
+@media screen and (max-width: 1060px) {
+    .search-header input{
+        width: 400px;
+        
+    }
+}
+
+@media screen and (max-width: 864px) {
+    .search-header input{
+        width: 320px;
+        
+    }
+}
+
+@media screen and (max-width: 582px) {
+    .search-header input{
+        width: 180px;
+        
+    }
+    .nav_main {
+        padding-left: 10px;
+    }
+    .search-header{
+        margin: 0;
+    }
+}

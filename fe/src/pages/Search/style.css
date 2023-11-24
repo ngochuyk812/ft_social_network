@@ -1,0 +1,9 @@
+.container_search{
+    background-color: white;
+    max-width: 800px;
+    flex: 1;
+}
+.title-search{
+    font-size: 20px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,128 @@
+.post_item{
+    padding: 15px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+.header_post{
+    display: flex;
+    justify-content: space-between;
+}
+.profile_post{
+    display: flex;
+    gap: 10px;
+}
+.time_post{
+    font-size: 14px;
+}
+.info_user_post{
+    margin-top: 2px;
+}
+.avatar_user_post{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.profile_post p{
+    margin: 0;
+}
+.name_info_post{
+    font-weight: 600;
+}
+.item_media{
+    cursor: pointer;
+}
+.item_media{
+    position: relative;
+}
+.num_hidden p{
+}
+.num_hidden{
+    border-radius: 13px;
+
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(37, 34, 34, 0.534);
+    opacity: 1;
+}
+
+.media_content_row{
+    display: flex;
+    gap: 5px;
+}
+.media_content_row>div:nth-child(even){
+    margin-top: 20px;
+}
+.item_media{
+    border-radius: 13px;
+    width: 100%;
+    height: 600px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    border: 1px solid lightgray;
+    box-shadow: 5px 5px 5px 1px lightgray;
+
+}
+
+.video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 13px;
+
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(34, 28, 28, 0.185);
+}
+.video > i{
+    font-size: 50px;
+    
+}
+.post_item .view_reaction{
+    margin-top: 20px;
+
+}
+.post_item .view_reaction span{
+    margin-right: 10px;
+
+}
+.post_item .box_action{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+@media (max-width: 1000px) {
+    .item_image_media{
+        height: 200px;
+        width: 200px;
+    }
+    .item_media{
+        height: 200px;
+    }
+  }
+
+
+  .media_content-default{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+    min-width: 100%;
+  }
+  .media_content-default > div{
+    height: 300px;
+    border: 1px solid lightgray;
+  }

@@ -1,0 +1,121 @@
+.main_message{
+    background-color: #F0F0F0;
+    display: flex;
+    height: calc(100vh - 70px);
+    position: relative;
+}
+
+.list-user{
+    flex: 1;
+    padding: 10px;
+    width:160
+    
+}
+
+
+.chat-user{
+    flex: 4;
+    border-left: 1px solid lightgray;
+}
+.input-mess{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color:  #4398ff4b;
+}
+
+.main-item-mess{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 8px;
+}
+.main-item-mess.not-me{
+    display: flex;
+    flex-direction: row;
+}
+.item-mess{
+    background-color: #4399FF;
+    max-width: 65%;
+    padding: 4px 12px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    color: white;;
+
+}
+.item-mess p{
+    word-break: break-word;
+}
+.item-mess-not-me p{
+    word-break: break-word;
+}
+.item-mess-not-me{
+    background-color: rgba(209, 208, 208, 0.767);
+    max-width: 90%;
+    padding: 4px 12px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+
+}
+.chat_message{
+    height: calc(100vh - 50px - 90px);
+    padding-bottom: 10px;
+
+}
+.open-list-user{
+    position:absolute;
+     left:0;
+     top:0;
+     z-index:99;
+     display: none;
+     background-color: #4399FF;
+     padding: 3px 7px;
+     border-bottom-right-radius: 10px;
+     border-top-right-radius: 10px;
+
+}
+@keyframes animation_list_chat {
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+        display: none;
+    }
+}
+
+@media (max-width: 1300px) {
+    .open-list-user{
+        display: block;
+    }
+    .mobile-menu{
+        display: block;
+      }
+      .main_message{
+        height: calc(100vh - 120px);
+      } 
+      .chat_message{
+        height: calc(100vh - 100px - 90px);
+    
+      }
+      .list-user.mobile{
+        background-color: white;
+        box-shadow: 30px 5px 10px rgba(211, 211, 211, 0.418);
+        transition: all 0.4s;
+        opacity: 1;
+      }
+      .list-user.mobile.hide_mobile{
+        opacity: 0;
+        width: 0;
+       }
+       .list-user.mobile{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 270px;
+        z-index: 98;
+    }
+  }

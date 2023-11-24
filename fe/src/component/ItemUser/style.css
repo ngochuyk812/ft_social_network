@@ -1,0 +1,37 @@
+.item_friend{
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.item_friend >img{
+    border-radius: 10px;
+}
+.item_friend .info_friend_right p{
+    margin: 0;
+    padding: 0;
+
+}
+.item_friend .info_friend_right {
+    flex: 2;
+
+}
+.item_friend .info_friend_right p:nth-child(1){
+    font-weight: 500;
+
+}
+.item_friend .info_friend_right p:nth-child(2){
+    font-size: 13px;
+    color: rgb(119, 119, 119);
+
+}
+.item_friend > span{
+    
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 15px;
+}
+
+.item_friend{
+    cursor: pointer;
+}

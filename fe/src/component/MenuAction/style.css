@@ -1,0 +1,40 @@
+.main_menu_action{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.main_menu_action ul{
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    border: 1px solid lightgray;
+    background-color: white;
+    box-shadow: 5px 5px 10px rgb(73, 72, 72);
+}
+
+.main_menu_action ul li{
+    cursor: pointer;
+    padding: 5px 20px;
+    font-size: 14px;
+    text-wrap: nowrap;
+
+
+}
+
+.main_menu_action ul li:hover{
+    background-color: lightgray;
+   
+}
+
+.main_menu_action .outside{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 98;
+}

@@ -1,0 +1,13 @@
+.notification-item{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    background-color: white;
+    padding: 7px;
+    border-radius: 7px;
+    align-items: center;
+}
+.notifications-main{
+    max-width: 800px;
+    margin: auto;
+}

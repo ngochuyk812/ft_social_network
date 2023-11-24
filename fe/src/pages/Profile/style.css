@@ -1,0 +1,150 @@
+.profile_container{
+    background-color: white;
+    overflow: auto;
+}
+.banner_profile {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+}
+.top_profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;    
+}
+.avatar_profile{
+    border-radius: 50%;
+    border: 6px solid white;
+}
+.fullname_profile{
+    font-size: 25px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+.action_profile{
+    display: flex;
+    justify-content: center;
+}
+.center-profile{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.left-profile{
+    flex: 2.5;
+    padding: 5px;
+}
+.right-profile{
+    flex: 1;
+    border: 1px solid lightgray;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.media-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.media-list >div{
+    height: 400px;
+    background-position: center;
+    background-size: cover;
+}
+
+.list-friend{
+    display: grid;
+    grid-template-columns: 280px 280px 280px 280px;
+    justify-content: center;
+    gap: 10px;
+}
+
+.item-friend{
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    cursor: pointer;
+    
+}
+.item-friend img{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+
+}
+.item-friend p{
+    padding-left: 10px;
+    padding-top: 10px;
+    font-weight: 600;
+
+}
+.item-friend .action-item-friend{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+
+}
+.item-friend .action-item-friend .add_item-friend{
+    background-color: #00adef;
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+    
+}
+.item-friend .action-item-friend .reject_item-friend{
+    color: black;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: lightgray;
+    
+}
+.title-friend{
+    width: 100%;
+    border: 1px solid lightgray;
+    margin-top: 20px;
+    margin-bottom: 26px;
+}
+.title-friend div{
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    right: 0;
+    text-align: center;
+    transform: translateY(-14px);
+}
+.title-friend h2{
+    padding: 0 10px;
+    display: inline;
+    background-color: white;
+}
+.profile_container{
+    background-color: #f0f2f5;
+}
+.top_profile, .center-profile{
+    background-color: white;
+}
+.nav-bar{
+    line-height: 0.75rem;
+}
+.item-update-image{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.contain-preview-update{
+    position: relative;
+}
+.contain-preview-update i{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 9;
+    color: red;
+    cursor: pointer;
+    
+}

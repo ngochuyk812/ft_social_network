@@ -1,0 +1,81 @@
+.input{
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    gap: 5px;
+    flex-direction: column;
+    border-radius: 20px;
+
+}
+.input .icon-input{
+    font-size: 20px;
+    cursor: pointer;
+}
+.input textarea{
+    flex: 1;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 5px;
+    height: 30px;
+    border: none;
+}
+.input textarea:focus{
+    box-shadow:none;
+}
+
+.input button{
+    background-color: white;
+}
+
+.action-input{
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.icon-action{
+    display: flex;
+    gap: 5px;
+}
+
+.icon-action .emoji{
+    position: relative;
+}
+.list_emoji{
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    height: 200px;
+    width: 300px;
+    border: 1px solid lightgray;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: rgba(245, 245, 220, 0.356);
+    border-radius: 10px;
+    box-shadow: 5px 5px 12px  rgba(0, 0, 0, 0.267);
+}
+.list_emoji p{
+    font-size: 22px;
+    cursor: pointer;
+}
+.preview-meta-input{
+    display: flex;
+    gap: 8px;
+    overflow-x: scroll;
+}
+.preview-meta-input div{
+    width: 150px;
+}
+.meta-input{
+    position: relative;
+}
+.remove-meta-input{
+    position: absolute;
+    right: 5px;
+    font-size: 22px;
+    color: red;
+    font-weight: 1000;
+    cursor: pointer;
+}

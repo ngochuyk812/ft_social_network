@@ -1,0 +1,46 @@
+.sidebar_right{
+    background-color: white;
+  flex: 1;
+  border-radius: 15px;
+  grid-area: sideright;
+
+  
+}
+
+.form_search_sidebar_right{
+  position: relative;
+  min-width: 80%
+}
+.form_search_sidebar_right > i{
+  position: absolute;
+  top:10px;
+  left: 10px;
+  color: #9ca3af;
+}
+.main_search_sidebar_right{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.form_search_sidebar_right > input{
+  height: 30px;
+  text-indent: 33px;
+  border: 1px solid lightgray;
+  outline: none;
+  border-radius: 10px;
+  width:100%;
+}
+
+.sidebar_right >p{
+  font-weight: 500;
+  margin-left: 20px;
+}
+
+.list_firend{
+  margin-top: 20px;
+  padding: 0 20px;
+  height: calc(100vh - 160px);
+  overflow: auto;
+
+  
+}
