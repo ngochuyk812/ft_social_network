@@ -11,6 +11,8 @@ import Messages from "../pages/Messages/Messages";
 import Friends from "../pages/Friends/Friends";
 import Notification from "../pages/Notification/Notification";
 import PostDetail from "../pages/PostDetail/PostDetail";
+import Verification from "../pages/Verification/Verification";
+import NotFound from "../pages/NotFound/NotFound";
 const Login = React.lazy(() => import('../pages/Login/Login'))
 export default function Router() {
     
@@ -83,7 +85,17 @@ export default function Router() {
           }
         />
 
-        <Route path="*" element={<>404</>} />
+        <Route
+          path="verification/:token"
+          element={
+            <React.Suspense fallback={<Loading/>}>
+              <Verification />
+            </React.Suspense>
+          }
+        />
+
+
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     );
 }

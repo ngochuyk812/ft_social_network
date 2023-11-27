@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { PostItemCreate } from "../../types/post.type";
 import { useCreatePostMutation } from "../../redux/services/post.service";
 import { addNotify } from "../../redux/slice/notifySlice";
+import { addPost } from "../../redux/slice/postSlice";
 
 function CreatePost() {
     
@@ -45,9 +46,10 @@ function CreatePost() {
     const caption = refContent.current.value
     console.log({caption, layout: layoutSelect, audience: audienceSelect, medias});
     const postItem : PostItemCreate ={caption, layout: layoutSelect, audience: audienceSelect, medias}
-    dispatch(addNotify({message:"Craete post", description: "Post your is being processed", type:'success'}))
+    if(caption.trim() === "" && medias.length === 0) return;
     const result = await createPost(postItem).unwrap()
     if(result){
+      dispatch(addPost(result))
       dispatch(addNotify({message:"Craete post", description: "Your post has been processed", type:'success'}))
     }
     refContent.current.value = "";
@@ -60,6 +62,7 @@ function CreatePost() {
         <div style={{ flex: 1 }}>
           <Select style={{ width: 120 }} defaultValue={0} onChange={setAudienceSelect} options={audience} />
           <textarea
+            id="input-caption"
             ref={refContent}
             rows={5}
             placeholder="Enter caption ..."

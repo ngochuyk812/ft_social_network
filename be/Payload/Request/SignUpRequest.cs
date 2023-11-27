@@ -7,5 +7,6 @@ namespace BE_SOCIALNETWORK.Payload.Request
         public string Password { get; set; }
         public string Email { get; set; }
         public string FullName { get; set; }
+        public string VericationPath { get; set; }
     }
 }

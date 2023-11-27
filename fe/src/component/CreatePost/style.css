@@ -162,3 +162,11 @@
 .show-preview{
   transition: all 0.3s ease;
 }
+
+#input-caption{
+  margin-top: 10px;
+
+}
+#input-caption:focus{
+  box-shadow: none
+}

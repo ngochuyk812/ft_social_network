@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom';
 import { SignalrContext } from '../../helper/contextSignalr';
 import { addMessToRoom, setRoomSelect, setRooms } from '../../redux/slice/messageSlice';
 import converDate from '../../helper/converDate';
-import MenuAction from '../../component/MenuAction/MenuAction';
+import { setLockLoading } from '../../redux/slice/authSlice';
 
 
 const ItemUserMessage = ({user, onSelect, messNotSeen}:{user:User, onSelect:MouseEventHandler<HTMLDivElement>, messNotSeen:Message[]})=>{
@@ -26,7 +26,7 @@ const ItemUserMessage = ({user, onSelect, messNotSeen}:{user:User, onSelect:Mous
           <img width={50} height={50} style={{borderRadius:'50%'}} src={user.avatar ?? "https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-dep-2.jpeg"}/>
           <div className='info_friend_right' style={{overflow:'hidden'}}>
               <p className='text-nowrap' style={{color:'#4399FF', fontWeight:600, textOverflow:'ellipsis'}}>{user.fullName}</p>
-              <p style={{textOverflow:'ellipsis'}}>{message.mediaMessages?.find(f=>f.type === "TEXT")?.src ?? ""}</p>
+              <p style={{textOverflow:'ellipsis'}}>{message?.mediaMessages?.find(f=>f.type === "TEXT")?.src ?? ""}</p>
           </div>
           <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
           <AiOutlineCheckCircle color={'#4399FF'}/>             {/* DDax xem  */}
@@ -58,8 +58,11 @@ function Messages() {
       
     },[getRooms])
     useEffect(()=>{
+      dispatch(setLockLoading(true))
       return ()=>{
         dispatch(setRoomSelect(-1))
+        dispatch(setLockLoading(false))
+
       }
       
     },[])
@@ -78,6 +81,7 @@ function Messages() {
           return
         }
         const par = tmp.participants.filter(tmp=>tmp.userId !== id)[0];
+        if(!par) return;
         const user = par.user;
         
         const messNotSeen = tmp.messages.filter(f=>f.status === 0)

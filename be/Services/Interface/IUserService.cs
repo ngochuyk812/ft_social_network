@@ -11,13 +11,15 @@ namespace BE_SOCIALNETWORK.Services.Interface
 {
     public interface IUserService
     {
-        public Task<string> SignUp(string username, string password, string email, string fullName);
+        public Task<string> SignUp(string username, string password, string email, string fullName, string pathVerication);
         public Task<SignInResponse> SignIn(string username, string password);
         public Task<bool> FindByUsernameOrEmail(string username, string email);
-        public Task<bool> FindByUsername(string username);
+        public Task<User> FindByUsername(string username);
         Task<List<InfoUserDto>> SearchUserByQuery(string query);
         Task<InfoUserDto> GetUserById(int id);
         Task<SignInResponse> UpdateUser(UpdateUserRequest request);
+        Task<bool> VeriAccount(string token);
+
 
     }
 }

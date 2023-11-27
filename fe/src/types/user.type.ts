@@ -19,6 +19,13 @@ export interface LoginType{
     username: string,
     password: string
 }
+export interface SignUpType{
+  username: string,
+  password: string,
+  re_password: string,
+  fullName: string,
+  email: string
+}
 
 export interface User {
   id: number;

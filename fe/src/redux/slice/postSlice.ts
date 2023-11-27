@@ -121,6 +121,10 @@ export const postSlice = createSlice({
       state.data = undefined
 
     },
+    addPost:(state, action)=>{
+      if(state.data?.data)
+      state.data.data = [action.payload, ...state.data?.data ?? []]
+    },
     removeReaction:(state, action)=>{
       const dataPrev = state.data
       const dataPage = dataPrev?.data || [];
@@ -138,6 +142,6 @@ export const postSlice = createSlice({
 
 })
 
-export const { setData, addReaction, removeReaction, setPaginationComment, addComments, cleanComment, cleanPost, removeCommentById, removePost, setPostSelect} = postSlice.actions
+export const { addPost,setData, addReaction, removeReaction, setPaginationComment, addComments, cleanComment, cleanPost, removeCommentById, removePost, setPostSelect} = postSlice.actions
 
 export default postSlice.reducer

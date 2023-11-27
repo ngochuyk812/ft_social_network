@@ -30,7 +30,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
             this.pageSettings = pageSettings.Value;
             this.commentService = commentService;   
         }
-        public async Task<PostDto> UploadPost(CreatePostRequest body, List<MediaDto> pathMedia)
+        public async Task<CustomPostHomeDto> UploadPost(CreatePostRequest body, List<MediaDto> pathMedia)
         {
             var userId = _httpContextAccessor.HttpContext.GetUser();
             if (userId == null)
@@ -59,7 +59,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
             var entity = await _unitOfWork.PostRepository.AddAsync(post);
             await _unitOfWork.CommitAsync();
             var rs = await FindById(entity.Id);
-            return rs;
+            return mapper.Map<CustomPostHomeDto>(rs);
         }
         public async Task<PaginatedItems<CustomPostHomeDto>> ListAsyncPage(int pageIndex)
         {
@@ -70,6 +70,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
                 idUser = userId.Id;
             }
             var query = _unitOfWork.PostRepository.QueryFromSql<CustomPostHome>($"SELECT [Id], [UserId]      ,[Caption]      ,[Audience]      ,[Layout]      ,[Status]      ,[CreatedDate]    ,(SELECT COUNT(*) FROM Comment WHERE PostId = Post.Id) as CommentCount    ,(SELECT COUNT(*) FROM [Like]  WHERE PostId = Post.Id) as LikeCount\t,(SELECT type FROM [Like]  WHERE PostId = Post.Id and UserId = {idUser}) as LikeTypeId  FROM [Post] ");
+            query = query.OrderByDescending(f => f.CreatedDate);
             var rs = await _unitOfWork.PostRepository.PageWithQueryAsync<CustomPostHome>(pageIndex, pageSettings.Size, query, f => true, null, f => f.Include(a => a.MediaPosts).Include(f => f.User).Include(f => f.LikeType));
             return mapper.Map<PaginatedItems<CustomPostHomeDto>>(rs);
         }
@@ -91,6 +92,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
             var userId = _httpContextAccessor.HttpContext.GetUser();
 
             var query = _unitOfWork.PostRepository.QueryFromSql<CustomPostHome>($"SELECT [Id], [UserId]      ,[Caption]      ,[Audience]      ,[Layout]      ,[Status]      ,[CreatedDate]    ,(SELECT COUNT(*) FROM Comment WHERE PostId = Post.Id) as CommentCount    ,(SELECT COUNT(*) FROM [Like]  WHERE PostId = Post.Id) as LikeCount\t,(SELECT type FROM [Like]  WHERE PostId = Post.Id and UserId = {idUser}) as LikeTypeId  FROM [Post]  WHERE Post.UserId = {idUser}");
+            query = query.OrderByDescending(f => f.CreatedDate);
             var rs = await _unitOfWork.PostRepository.PageWithQueryAsync<CustomPostHome>(pageIndex, pageSettings.Size, query, f => true, null, f => f.Include(a => a.MediaPosts).Include(f => f.User).Include(f => f.LikeType));
             return mapper.Map<PaginatedItems<CustomPostHomeDto>>(rs);
         }

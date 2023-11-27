@@ -7,9 +7,11 @@ const getUserFromStorage = ()=>{
   return JSON.parse(user)
   return user
 }
-const initialState:{user?: UserData, status : string} = {
+const initialState:{user?: UserData, status : string, loading: boolean, lockLoading:boolean} = {
   user: getUserFromStorage() ?? null,
-  status : ""
+  status : "",
+  loading: false,
+  lockLoading: false
 }
 
 
@@ -38,11 +40,18 @@ export const authSlice = createSlice({
     },
     updateProfile:(state, action)=>{
       state.user = {...action.payload, accessToken: state.user?.accessToken, refreshToken: state.user?.refreshToken}
+    },
+    setLoading:(state, action) =>{
+      state.loading = action.payload
+    }
+    ,
+    setLockLoading:(state, action) =>{
+      state.lockLoading = action.payload
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { logout, setLogin, updateProfile} = authSlice.actions
+export const { logout, setLogin, updateProfile, setLoading, setLockLoading} = authSlice.actions
 
 export default authSlice.reducer

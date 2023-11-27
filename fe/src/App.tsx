@@ -10,6 +10,7 @@ import { Notification as Notifi, NotificationType, SignalRRes } from './types/In
 import { addNotify } from './redux/slice/notifySlice'
 import { Message } from './types/message'
 import { addMessToRoom } from './redux/slice/messageSlice'
+import Loading from './component/Loading/Loading'
 
 function App() {
   const [connection, setConnection] = useState<null | HubConnection>(null);
@@ -81,15 +82,20 @@ function App() {
     }
 
   }, [connection]); 
+  const isLoading = useSelector((state:RootState) => state.auth);
+
   return (
     <SignalrContext.Provider value={connection}>
       <div className="App">
         <ListNotification/>
         <Router/>
+        {(isLoading.loading && !isLoading.lockLoading) &&  <Loading/>}
       </div>
     </SignalrContext.Provider>
     
   )
 }
+
+
 
 export default App

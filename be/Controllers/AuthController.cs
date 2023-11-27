@@ -35,7 +35,7 @@ public class AuthController : ControllerBase
         {
             return BadRequest(new {status="error", data= "Username or email exists" });
         }
-        string rs = await userService.SignUp(body.Username, body.Password, body.Email, body.FullName);
+        string rs = await userService.SignUp(body.Username, body.Password, body.Email, body.FullName, body.VericationPath);
         return Ok(new { status = "success", data= new { username =rs } });
     }
 
@@ -49,10 +49,13 @@ public class AuthController : ControllerBase
             return BadRequest(new {  data = "Please enter complete information" });
         }
         var checkEmail = await userService.FindByUsername(body.Username);
-        if(!checkEmail)
+        if(checkEmail == null)
         {
             return BadRequest(new {  message = "Username does not exist" });
         }
+        if(checkEmail.Status == 0)
+            return BadRequest(new { message = "Please check your email and activate your account" });
+
         var rs = await userService.SignIn(body.Username, body.Password);
         if (rs == null)
         {
@@ -74,5 +77,17 @@ public class AuthController : ControllerBase
     {
         return Ok(s3Service.RemoveFile(new List<string> { key.Replace("%2F", "/") }));
     }
+
+    [HttpGet]
+    [Route("very_account/{token}")]
+    public async Task<IActionResult> VeryAccount(string token)
+    {
+        var rs = await userService.VeriAccount(token);
+        if (rs)
+            return Ok(true);
+        else
+            return NotFound();
+    }
+
 
 }

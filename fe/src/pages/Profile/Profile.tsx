@@ -16,7 +16,7 @@ import NotFound from "../NotFound/NotFound";
 import { useAcceptFriendMutation, useAddFriendMutation, useRejectFriendMutation } from "../../redux/services/friend.service";
 import { useGetRoomOrCreateQuery } from "../../redux/services/message.service";
 import { useGetPostLikedQuery } from "../../redux/services/post.service";
-import { Button, Image, Input, Modal, Upload } from "antd";
+import { Button, Image, Input, Modal, Result, Upload } from "antd";
 function Profile() {
     const [profile, setProfile] = useState<User>();
    const[activeTab, setActiveTab] = useState(0)
@@ -41,7 +41,7 @@ function Profile() {
    }
    const { data: getRoom, refetch } = useGetRoomOrCreateQuery({user:Number(id)});
    
-   const {data:profileRs} = useGetProfileByIdQuery(Number(id));
+   const {data:profileRs, error:errorGetProfile} = useGetProfileByIdQuery(Number(id));
 
    const handleAddFriend = async ()=>{
         if(itMe) return;
@@ -77,10 +77,11 @@ function Profile() {
        }
     },[id])
     useEffect(()=>{
-        if(profileRs)
-        setProfile(profileRs)
-    },[profileRs])
+        if(profileRs){
+            setProfile(profileRs)
 
+        }
+    },[profileRs])
     const initAction = ()=>{
         if(itMe){
            return; 
@@ -147,7 +148,7 @@ function Profile() {
         <>
         {
         !profile ?
-        <NotFound/>
+        errorGetProfile && <NotFound/>
         :
         <div className="profile_container main_container" >
             <Image
@@ -191,9 +192,12 @@ function Profile() {
                         <button onClick={()=>changeTab(2)} className={"inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 " + (activeTab === 2 ? " text-blue-600 bg-gray-100 rounded-t-lg" : "")}>Liked</button>
                     </li>
                     }
+                    {itMe &&
                     <li className="mr-2">
                         <button onClick={()=>changeTab(3)} className={"inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 " + (activeTab === 3 ? " text-blue-600 bg-gray-100 rounded-t-lg" : "")}>Profile</button>
                     </li>
+                    }
+                    
                    
                   
                 </ul>
@@ -236,18 +240,39 @@ const PostTab = ({id}:{id:string}) =>{
          dispatch(cleanPost())
         }
      },[])
+     const handleScroll = (e:any)=>{
+        const  scrollTop = e.currentTarget.scrollTop + 1500
+        const  height = e.currentTarget.scrollHeight 
+        if(scrollTop > height  && !isFetching && page < (dataPost?.pageSize ?? 0)){
+            setPage(pre => pre + 1)
+        }
+        
+    }
+    const renderPost = ()=>{
+        if(dataPost != undefined && dataPost.data != undefined && dataPost.data.length > 0){
+            return <div className="home_container main_container" onScroll={handleScroll}>
+            <ListPost data={dataPost} />
+        </div>;
+        }
+        return <Result
+        status="404"
+        title=""
+        subTitle="There are no posts yet"
+        />
+        
+    }
     return (
         <>
-        {dataPost && <ListPost data={dataPost}/>}
+        {renderPost()}
         </>
     )
 }
 
 const MediaTab = ({id, preview}:{id:string, preview:any}) =>{
     const {data, isLoading, isFetching} = useGetMediaUserQuery({idUser:Number(id)})
-    return (
-        <div className="media-list">
-            {data?.map(tmp=>{
+    const render = ()=>{
+        if(data != undefined && data.length > 0){
+            return data?.map(tmp=>{
                 return <Image
                 key={tmp.src}
                 width={280}
@@ -261,7 +286,19 @@ const MediaTab = ({id, preview}:{id:string, preview:any}) =>{
                   />
                 }
               />
-            })}
+            })
+        }
+        return <Result
+        status="404"
+        title=""
+        subTitle="There are no medias yet"
+        />
+        
+    }
+
+    return (
+        <div className="media-list">
+            {render()}
 
         </div>
     )

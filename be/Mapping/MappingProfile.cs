@@ -24,7 +24,8 @@ namespace BE_SOCIALNETWORK.Mapping
             CreateMap<Post, PostDto>().ReverseMap();
             CreateMap<Room, RoomDto>().ReverseMap();
             CreateMap<Notification, NotificationDto>().ReverseMap();
-
+            CreateMap<Post, CustomPostHomeDto>().ReverseMap();
+            CreateMap<PostDto, CustomPostHomeDto>().ReverseMap();
             CreateMap<CustomPostHome, CustomPostHomeDto>().ReverseMap();
             CreateMap<PaginatedItems<CustomPostHome>, PaginatedItems<CustomPostHomeDto>>().ReverseMap();
 

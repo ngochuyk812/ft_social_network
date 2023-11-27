@@ -21,6 +21,8 @@ services.Configure<JWTSettings>(_configuration.GetSection("JWT"));
 services.Configure<PageSettings>(_configuration.GetSection("Pagination"));
 services.Configure<AWSSetings>(_configuration.GetSection("AWS"));
 services.Configure<AppSettings>(_configuration.GetSection("AppSettings"));
+services.Configure<MailSettings>(_configuration.GetSection("Mail"));
+
 services.AddSignalR();
 
 
@@ -52,7 +54,7 @@ services.AddControllers()
       options.SerializerSettings.ReferenceLoopHandling =
         Newtonsoft.Json.ReferenceLoopHandling.Ignore
    );
-
+services.AddSingleton<MailUtils>();
 services.AddScoped<IUnitOfWork, UnitOfWork>();
 services.AddScoped(typeof(ICommentService), typeof(CommentService));
 services.AddScoped(typeof(IFriendService), typeof(FriendService));

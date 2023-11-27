@@ -6,6 +6,7 @@ import { Notification } from '../../types/Index';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import converDate from '../../helper/converDate';
+import NoData from '../NoData/NoData';
 function Notification() {
     const {data: notifications } = useGetNotificationQuery();
     const dispatch = useDispatch()
@@ -13,9 +14,13 @@ function Notification() {
         <div className="home_container main_container d-flex justify-center px-1 notifications-main">
             <div className="container">
                 <p className="title-search">Notification</p>
-                {notifications?.map(tmp=>{
+                {notifications && notifications.length >0 ? 
+                notifications?.map(tmp=>{
                   return <ItemNotification notification={tmp} />
-                })}
+                })
+                : 
+                <NoData text='You dont have any friends yet'/>}
+                
                 
                 
             </div>
