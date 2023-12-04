@@ -2,6 +2,7 @@ import { BaseQueryApi, BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQue
 import { RootState } from "./store";
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { setLoading } from "./slice/authSlice";
+axios.defaults.withCredentials = true
 
 
 export const optionFetchBaseQuery = { 
@@ -32,10 +33,11 @@ export const optionFetchBaseQuery = {
 
       const token = (api.getState() as RootState).auth.user?.accessToken
       
-      const result = await axios({ url: import.meta.env.VITE_URL_BE + url, method, data ,headers:{
+      const result = await axios({ url: import.meta.env.VITE_URL_BE + url, method, data,withCredentials: true, headers:{
         "Authorization":`Bearer ${token}`,
         "Content-type" : "application/json; charset=utf-8",
-        ...headers
+        ...headers,
+
       }});
       return { data: result.data };
     } catch (axiosError) {

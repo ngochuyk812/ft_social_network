@@ -32,3 +32,7 @@ export interface Notification{
   toId: number;
 
 }
+export interface VeryForgotPassword{
+  otp:string;
+  passsword: string;
+}

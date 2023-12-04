@@ -7,6 +7,7 @@ using BE_SOCIALNETWORK.Repositories.IRespositories;
 using BE_SOCIALNETWORK.Services;
 using BE_SOCIALNETWORK.Services.Interface;
 using BE_SOCIALNETWORK.SignalR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,16 @@ services.Configure<PageSettings>(_configuration.GetSection("Pagination"));
 services.Configure<AWSSetings>(_configuration.GetSection("AWS"));
 services.Configure<AppSettings>(_configuration.GetSection("AppSettings"));
 services.Configure<MailSettings>(_configuration.GetSection("Mail"));
+services.AddSession(options =>
+{
+    options.Cookie.Name = ".AdventureWorks.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(30);//We set Time here 
+    options.Cookie.IsEssential = true;
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 
+});
+services.AddDistributedMemoryCache();
 services.AddSignalR();
 
 
@@ -72,6 +82,7 @@ services.AddScoped(typeof(ILikeTypeService), typeof(LikeTypeService));
 services.AddScoped(typeof(INotificationService), typeof(NotificationService));
 services.AddSingleton<NotificationHub>();
 
+
 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -100,7 +111,8 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 return Task.CompletedTask;
             }
         };
-    });
+    }
+   );
 
 
 
@@ -117,10 +129,12 @@ if (app.Environment.IsDevelopment())
         .SetIsOriginAllowed(origin => true) // allow any origin
         .AllowCredentials()); // allow credentials
 }
+app.UseSession(); //<--- add this line
 
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCookiePolicy();
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addNotify } from '../../redux/slice/notifySlice';
 import { setLogin } from '../../redux/slice/authSlice';
-import { useLoginMutation, useSignupMutation } from '../../redux/services/login.service';
+import { useForgotMutation, useLoginMutation, useSignupMutation, useVery_forgotMutation } from '../../redux/services/login.service';
 import { Button, Form, Input, Tabs, TabsProps } from 'antd';
 import { SignUpType } from '../../types/user.type';
 function Login() {
@@ -32,7 +32,7 @@ function Login() {
         {
           key: '3',
           label: '',
-          children: <ForgetForm />,
+          children: <ForgetForm onChange={onChange}/>,
         }
       ];
     const [activeKey, setActiveKey] = useState(items[0].key)
@@ -119,17 +119,23 @@ const LoginForm = ({onChange}:{onChange:(key:string)=>void})=>{
             </form>
     )
 }
-const ForgetForm = ()=>{
+const ForgetForm = ({onChange}:{onChange:(key:string)=>void})=>{
     const navigator = useNavigate()
-    const [login, loginResult ] = useLoginMutation();
+    const [forgotAPI, forgotRS ] = useForgotMutation();
+    const [veryForgotAPI, veryForgotRS ] = useVery_forgotMutation();
+
     const [email, setEmail] = useState<string>('')
     const [pass, setPass] = useState<string>('')
+    const [rePass, setRePass] = useState<string>('')
+    const [OTP, setOTP] = useState<string>('')
+
+    const [step, setStep] = useState(0);
     const dispatch = useDispatch();
 
     const handleForgot = async (e : React.MouseEvent<HTMLButtonElement>)=>{
         let check = true
         e.preventDefault()
-        const arrInput = document.querySelectorAll(".forgot-check input")
+        const arrInput = document.querySelectorAll(step === 0 ? ".forgot-check input" : ".forgot-check2 input")
         arrInput.forEach((tmp: any)=>{
             if(tmp.value === ''){
                 tmp.style.border = '1px solid red'
@@ -140,13 +146,23 @@ const ForgetForm = ()=>{
             }
         })
         if(check){
+            if(rePass !== pass){
+                dispatch(addNotify({message:"Forgot password failed", description: "Password incorrect", type:'error'}))
+                return;
+            }
             try{
-                // const result = await login({username, password: pass}).unwrap()
-                // dispatch(addNotify({message:"Login success", description: "Hello " + result.fullName ?? "", type:'success'}))
-                // dispatch(setLogin(result))
-                // navigator("/")
+                if(step === 0){
+                    const result = await forgotAPI(email).unwrap()
+                    setStep(1);
+                }else{
+                    await veryForgotAPI({otp: OTP, password: pass}).unwrap();
+                    onChange("1")
+                    dispatch(addNotify({message:"Success", description: "Change password success", type:'success'}))
+
+                }
+                
             }catch(error:any){
-                dispatch(addNotify({message:"Login failed", description: error.data.message, type:'error'}))
+                dispatch(addNotify({message:"Forgot password failed", description: error.data.message, type:'error'}))
                 return
             }
             
@@ -155,17 +171,47 @@ const ForgetForm = ()=>{
         dispatch(addNotify({message:"Forgot password failed", description: "Please enter enough information", type:'error'}))
     }
     return(
-        <form action="#" className="signin-form forgot-check">
-                <div className="form-group mb-3">
-                    <label className="label" htmlFor="name">Email</label>
-                    <input type="email" className="form-control" placeholder="Email" onChange={(event)=>{setEmail(event.target.value)}} required />
-                </div>
-                
-                <div className="form-group">
-                    <button type="submit" onClick={(e)=>{handleForgot(e)}} className="form-control btn btn-primary rounded submit px-3">Forgot Password</button>
-                </div>
-                
-        </form>
+        <>
+        {step === 0 &&
+            <form action="#" className="signin-form forgot-check">
+                    <div className="form-group mb-3">
+                        <label className="label" htmlFor="name">Email</label>
+                        <input type="email" className="form-control" placeholder="Email" onChange={(event)=>{setEmail(event.target.value)}} required />
+                    </div>
+                    
+                    <div className="form-group">
+                        <button type="submit" onClick={(e)=>{handleForgot(e,)}} className="form-control btn btn-primary rounded submit px-3">Forgot Password</button>
+                    </div>
+                    
+            </form>
+        }
+        {step === 1 &&
+            <form action="#" className="signin-form forgot-check2">
+                   
+                    <div className="form-group mb-3">
+                        <label className="label" htmlFor="name">Password</label>
+                        <input type="password" className="form-control" placeholder="Password New" onChange={(event)=>{setPass(event.target.value)}} required />
+                    </div>
+                    <div className="form-group mb-3">
+                        <label className="label" htmlFor="name">Re-Password</label>
+                        <input type="password" className="form-control" placeholder="Password New" onChange={(event)=>{setRePass(event.target.value)}} required />
+                    </div>
+                    <div className="form-group mb-3">
+                        <label className="label" htmlFor="name">OTP</label>
+                        <input type="text" className="form-control" placeholder="000000" onChange={(event)=>{setOTP(event.target.value)}} required />
+                    </div>
+                    
+                    <div className="form-group">
+                        <button type="submit" onClick={(e)=>{handleForgot(e)}} className="form-control btn btn-primary rounded submit px-3">Submit</button>
+                        <button type="submit" onClick={(e)=>{setStep(pre=>pre-1)}} style={{backgroundColor:'red'}} className="form-control btn btn-danger rounded submit px-3 mt-2">Back</button>
+
+                    </div>
+                    
+            </form>
+        }
+        
+        </>
+        
     )
 }
 

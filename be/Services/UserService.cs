@@ -1,6 +1,7 @@
 ﻿
 using Amazon.S3;
 using AutoMapper;
+using Azure.Core;
 using BE_SOCIALNETWORK.Config;
 using BE_SOCIALNETWORK.Database.Model;
 using BE_SOCIALNETWORK.DTO;
@@ -40,10 +41,10 @@ namespace BE_SOCIALNETWORK.Services.Interface
             this.mailUtils = mailUtils;
         }
 
-        public async Task<bool> FindByUsernameOrEmail(string username, string email)
+        public async Task<UserDto> FindByUsernameOrEmail(string username, string email)
         {
             var user = await unitOfWork.UserRepository.Find(t=>t.Username == username || t.Email == email, null);
-            return user != null;
+            return mapper.Map<UserDto>(user);
         }
         public async Task<User> FindByUsername(string username)
         {
@@ -242,6 +243,18 @@ namespace BE_SOCIALNETWORK.Services.Interface
             unitOfWork.Commit();
             return mapper.Map<SignInResponse>(user);
 
+        }
+
+        public async Task<bool> UpdatePassword(string email, string password)
+        {
+            var find = await unitOfWork.UserRepository.Find(f=>f.Email == email);
+            if (find == null)
+                return false;
+
+            string hashPassword = SecretHasher.Hash(password);
+            find.Password = hashPassword;
+            unitOfWork.UserRepository.Update(find); unitOfWork.Commit();
+            return true;
         }
     }
 }
