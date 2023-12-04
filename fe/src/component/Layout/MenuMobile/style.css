@@ -13,6 +13,7 @@
     color: #51c4ff;
 }
 .mobile-menu ul li p{
+    cursor: pointer;
     font-weight: 600;
 }
 .mobile-menu ul li.not-active{

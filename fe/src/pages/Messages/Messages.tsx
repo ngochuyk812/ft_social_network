@@ -128,10 +128,10 @@ function Messages() {
 
 
 const ChatScreen = ({room, connection,updateMessage}:{room:Room, connection: HubConnection | null, updateMessage:(data:Message[], location: number)=>void})=>{
-  const {data: messageGet} = useGetMessageByRoomQuery({id:room.id, page:1})
   const [createMessage, createMessageResult ] = useCreateMessageMutation();
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(1);
+  const {data: messageGet, isFetching, isLoading} = useGetMessageByRoomQuery({id:room.id, page: page})
   const myId =  useSelector((state:RootState)=>state.auth.user?.id)
   const par = room?.participants.filter(tmp=>tmp.userId !== myId)[0];
   const user = par?.user;
@@ -179,11 +179,20 @@ const ChatScreen = ({room, connection,updateMessage}:{room:Room, connection: Hub
     })
 
   }
+  const handleScroll = (e:any)=>{
+    const  scrollTop = e.currentTarget.scrollTop
+    console.log(scrollTop, messageGet?.pageSize);
+    
+        if(scrollTop ===0  && !isFetching && page < (messageGet?.totalPage ?? 0)){
+            setPage(pre => pre + 1)
+        }
+    
+  }
   return (
    <>
     {
       room ?
-    <div className='mx-3 chat_message' style={{ overflow: 'auto', paddingTop:'75px'}} ref={chatContainerRef}>
+    <div className='mx-3 chat_message' style={{ overflow: 'auto', paddingTop:'75px'}} onScroll={handleScroll} ref={chatContainerRef}>
         <div className='item_friend' style={{position:'absolute', top:0, left:0, right:0, padding:'10px', background:'white', borderBottom:'1px solid lightgray'}}>
           <img width={50} height={50} style={{borderRadius:'50%'}} src={user?.avatar ?? "https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-dep-2.jpeg"}/>
           <div className='info_friend_right' style={{alignItems:'center',display:'flex'}}>

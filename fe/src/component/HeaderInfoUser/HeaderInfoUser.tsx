@@ -1,5 +1,4 @@
 import { User } from "../../types/user.type";
-import MenuAction from "../MenuAction/MenuAction";
 
 export default function HeaderInfoUser ({user, createdDate, children}:{user:User, createdDate: string, children?:string | JSX.Element | JSX.Element[] | any }){
     return (

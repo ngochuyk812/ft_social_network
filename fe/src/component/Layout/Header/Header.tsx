@@ -2,6 +2,8 @@ import React from 'react';
 import './style.css'
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../../assets/logo.png'
+import { logout } from '../../../redux/slice/authSlice';
+import { useDispatch } from 'react-redux';
 
 
 const Header : React.FC = () =>{
@@ -23,6 +25,7 @@ const Header : React.FC = () =>{
                 nava("/search/"+ event.target.value)
           }
     }
+    const dispatch = useDispatch()
     return (
        <header className='header'>
            <nav className='nav_main '>
@@ -32,6 +35,11 @@ const Header : React.FC = () =>{
                <i className="fa-solid fa-magnifying-glass"></i>
                </div>
                <div className="navbar-user">
+               <div style={{cursor:'pointer'}} onClick={()=>{
+                    dispatch(logout())
+                }}  className='exits_quantity'>
+                        <i className="fa-solid fa-right-from-bracket "></i>
+                    </div>
                     {/* <Link to={'/checkout'} className='exits_quantity'>
                         <i className="fa-solid fa-bell"></i>
                         <span className='quantity_header quantity_notify'>2</span>
