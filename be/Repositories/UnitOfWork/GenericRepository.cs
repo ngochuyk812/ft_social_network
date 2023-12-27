@@ -15,7 +15,7 @@ using System.Linq;
 using System.Linq.Expressions;
 namespace BE_SOCIALNETWORK.Repositories.Contracts
 {
-    public class GenericRepository<T> : IGenericRespository<T> where T : BaseModel  
+    public class GenericRepository<T> : IGenericRespository<T> where T : BaseModel
     {
 
         public Social_NetworkContext _context = null;
@@ -70,7 +70,7 @@ namespace BE_SOCIALNETWORK.Repositories.Contracts
             else
             {
                 entityEntry = await table.AddAsync(entity, new CancellationToken());
-              
+
             }
             return entityEntry.Entity;
         }
@@ -88,9 +88,9 @@ namespace BE_SOCIALNETWORK.Repositories.Contracts
                 table.Remove(entityToDelete);
             }
         }
-        public  void DeleteRange(Expression<Func<T, bool>> filter)
+        public void DeleteRange(Expression<Func<T, bool>> filter)
         {
-            var source =  table.Where(filter);
+            var source = table.Where(filter);
             table.RemoveRange(source);
         }
 
@@ -143,7 +143,7 @@ namespace BE_SOCIALNETWORK.Repositories.Contracts
 
         public void Update(T entity)
         {
-           table.Update(entity);
+            table.Update(entity);
         }
         public async Task<PaginatedItems<T>> PageAsync(int pageIndex, int pageSize, Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> includeProperties)
         {
@@ -166,16 +166,16 @@ namespace BE_SOCIALNETWORK.Repositories.Contracts
             {
                 listAsync = await source.Paginate(pageIndex, pageSize).ToListAsync();
             }
-            return new PaginatedItems<T> (pageIndex, pageSize, projectTotal,listAsync);
+            return new PaginatedItems<T>(pageIndex, pageSize, projectTotal, listAsync);
         }
 
-        
+
         public virtual IQueryable<TQuery> QueryFromSql<TQuery>(string sql, params object[] parameters) where TQuery : class
         {
             return _context.Set<TQuery>().FromSqlRaw(CreateSqlWithParameters(sql, parameters), parameters);
         }
 
-      
+
         public virtual string CreateSqlWithParameters(string sql, params object[] parameters)
         {
             //add parameters to sql
@@ -204,11 +204,11 @@ namespace BE_SOCIALNETWORK.Repositories.Contracts
             IQueryable<TQuery> source = null;
             if (query != null)
             {
-               source = query;
+                source = query;
             }
             else
             {
-               source = tableQuery;
+                source = tableQuery;
             }
             if (filter != null)
             {

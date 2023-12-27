@@ -3,7 +3,6 @@ using System;
 using BE_SOCIALNETWORK.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -18,9 +17,7 @@ namespace BE_SOCIALNETWORK.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.Comment", b =>
                 {
@@ -28,13 +25,11 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
@@ -53,7 +48,7 @@ namespace BE_SOCIALNETWORK.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment", (string)null);
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.CustomPostHome", b =>
@@ -62,19 +57,17 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("Audience")
                         .HasColumnType("int");
 
                     b.Property<string>("Caption")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("CommentCount")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("Layout")
                         .HasColumnType("int");
@@ -97,7 +90,7 @@ namespace BE_SOCIALNETWORK.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CustomPostHome", (string)null);
+                    b.ToTable("CustomPostHome");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.Friend", b =>
@@ -106,10 +99,8 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -126,7 +117,7 @@ namespace BE_SOCIALNETWORK.Migrations
 
                     b.HasIndex("UserRequestId");
 
-                    b.ToTable("Friend", (string)null);
+                    b.ToTable("Friend");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.Like", b =>
@@ -135,10 +126,8 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -157,7 +146,7 @@ namespace BE_SOCIALNETWORK.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Like", (string)null);
+                    b.ToTable("Like");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.LikeType", b =>
@@ -166,20 +155,18 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("LikeType", (string)null);
+                    b.ToTable("LikeType");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.MediaComment", b =>
@@ -188,25 +175,23 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("CommentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Src")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CommentId");
 
-                    b.ToTable("MediaComment", (string)null);
+                    b.ToTable("MediaComment");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.MediaMessage", b =>
@@ -215,25 +200,23 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("MessageId")
                         .HasColumnType("int");
 
                     b.Property<string>("Src")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MessageId");
 
-                    b.ToTable("MediaMessage", (string)null);
+                    b.ToTable("MediaMessage");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.MediaPost", b =>
@@ -242,25 +225,23 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<string>("Src")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("MediaPost", (string)null);
+                    b.ToTable("MediaPost");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.Message", b =>
@@ -269,10 +250,8 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -289,7 +268,7 @@ namespace BE_SOCIALNETWORK.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Message", (string)null);
+                    b.ToTable("Message");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.Notification", b =>
@@ -298,10 +277,8 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("FromId")
                         .HasColumnType("int");
@@ -310,7 +287,7 @@ namespace BE_SOCIALNETWORK.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("ToId")
                         .HasColumnType("int");
@@ -324,7 +301,7 @@ namespace BE_SOCIALNETWORK.Migrations
 
                     b.HasIndex("ToId");
 
-                    b.ToTable("Notification", (string)null);
+                    b.ToTable("Notification");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.Participant", b =>
@@ -333,10 +310,8 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -350,7 +325,7 @@ namespace BE_SOCIALNETWORK.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Participant", (string)null);
+                    b.ToTable("Participant");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.Post", b =>
@@ -359,16 +334,14 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("Audience")
                         .HasColumnType("int");
 
                     b.Property<string>("Caption")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("Layout")
                         .HasColumnType("int");
@@ -383,7 +356,7 @@ namespace BE_SOCIALNETWORK.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Post", (string)null);
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.Room", b =>
@@ -392,20 +365,18 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Room", (string)null);
+                    b.ToTable("Room");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.User", b =>
@@ -414,47 +385,45 @@ namespace BE_SOCIALNETWORK.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Avatar")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Banner")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("RefeshToken")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Story")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("BE_SOCIALNETWORK.Database.Model.Comment", b =>
@@ -462,7 +431,7 @@ namespace BE_SOCIALNETWORK.Migrations
                     b.HasOne("BE_SOCIALNETWORK.Database.Model.Comment", "CommentParent")
                         .WithMany()
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BE_SOCIALNETWORK.Database.Model.Post", "Post")
                         .WithMany("Comments")

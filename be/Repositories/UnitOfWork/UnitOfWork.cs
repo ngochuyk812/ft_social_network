@@ -8,7 +8,7 @@ namespace BE_SOCIALNETWORK.Repositories.Contracts
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private  Social_NetworkContext _context;
+        private Social_NetworkContext _context;
         private readonly CommentRepository commentRepository;
         private readonly FriendRepository friendRepository;
         private readonly LikeRepository likeRepository;
@@ -23,13 +23,13 @@ namespace BE_SOCIALNETWORK.Repositories.Contracts
         private readonly LikeTypeRepository likeTypeRepository;
         private readonly NotificationRepository notificationRepository;
 
-        public UnitOfWork(Social_NetworkContext context) 
+        public UnitOfWork(Social_NetworkContext context)
         {
             this._context = context;
         }
         public Social_NetworkContext Social_NetworkContext => this._context;
 
-        public ICommentService CommentRepository => commentRepository ?? new CommentRepository(this._context);
+        public ICommentRepository CommentRepository => commentRepository ?? new CommentRepository(this._context);
         public IFriendRepository FriendRepository => friendRepository ?? new FriendRepository(this._context);
         public ILikeRepository LikeRepository => likeRepository ?? new LikeRepository(this._context);
         public IMediaCommentRepository MediaCommentRepository => mediaCommentRepository ?? new MediaCommentRepository(this._context);

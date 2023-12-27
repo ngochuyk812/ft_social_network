@@ -7,9 +7,7 @@ using BE_SOCIALNETWORK.Repositories.IRespositories;
 using BE_SOCIALNETWORK.Services;
 using BE_SOCIALNETWORK.Services.Interface;
 using BE_SOCIALNETWORK.SignalR;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -50,7 +48,7 @@ services.AddSignalR();
 });*/
 services.AddDbContext<Social_NetworkContext>(options =>
 {
-    options.UseSqlServer(_configuration.GetConnectionString("MyConnect"));
+    options.UseMySql(_configuration.GetConnectionString("MyConnect") , ServerVersion.AutoDetect(_configuration.GetConnectionString("MyConnect")));
 });
 services.AddHttpContextAccessor();
 services.AddControllers();

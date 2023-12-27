@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 
 namespace BE_SOCIALNETWORK.Repositories.IRespositories
 {
-    public interface IUnitOfWork 
+    public interface IUnitOfWork
     {
-        ICommentService CommentRepository { get; }
+        ICommentRepository CommentRepository { get; }
         IFriendRepository FriendRepository { get; }
         Social_NetworkContext Social_NetworkContext { get; }
         ILikeRepository LikeRepository { get; }
@@ -26,6 +26,6 @@ namespace BE_SOCIALNETWORK.Repositories.IRespositories
         void Rollback();
         Task CommitAsync();
         Task RollbackAsync();
-       
+
     }
 }

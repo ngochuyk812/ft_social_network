@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace parking_center.Extensions
+namespace BE_SOCIALNETWORK.Extensions
 {
     public static class QueryableExtensions
     {

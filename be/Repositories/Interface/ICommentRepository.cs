@@ -4,7 +4,7 @@ using BE_SOCIALNETWORK.Repositories.IRespositories;
 
 namespace BE_SOCIALNETWORK.Repositories.Interface
 {
-    public interface ICommentService : IGenericRespository<Comment>
+    public interface ICommentRepository : IGenericRespository<Comment>
     {
     }
 }

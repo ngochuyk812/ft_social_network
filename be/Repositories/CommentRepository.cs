@@ -5,7 +5,7 @@ using BE_SOCIALNETWORK.Repositories.IRespositories;
 
 namespace BE_SOCIALNETWORK.Repositories.Interface
 {
-    public class CommentRepository : GenericRepository<Comment>, ICommentService
+    public class CommentRepository : GenericRepository<Comment>, ICommentRepository
     {
         public CommentRepository(Social_NetworkContext _context) : base(_context)
         {
