@@ -127,6 +127,16 @@ if (app.Environment.IsDevelopment())
         .SetIsOriginAllowed(origin => true) // allow any origin
         .AllowCredentials()); // allow credentials
 }
+else
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseCors(x => x
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .SetIsOriginAllowed(origin => true) // allow any origin
+        .AllowCredentials()); // allow credentials
+}
 app.UseSession(); //<--- add this line
 
 app.UseStaticFiles();
