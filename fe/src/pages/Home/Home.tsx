@@ -8,33 +8,33 @@ import { useGetPostByPageQuery } from '../../redux/services/home.service';
 import { cleanPost, setData } from '../../redux/slice/postSlice';
 
 function Home() {
-    const[page, setPage] = useState(1)
+    const [page, setPage] = useState(1)
     const dispatch = useDispatch();
-    const dataPost = useSelector((state: RootState)=> state.post.data)
+    const dataPost = useSelector((state: RootState) => state.post.data)
     const { data, isLoading, isFetching } = useGetPostByPageQuery(page);
-    const handleScroll = (e:any)=>{
-        const  scrollTop = e.currentTarget.scrollTop + 1500
-        const  height = e.currentTarget.scrollHeight 
-        if(scrollTop > height  && !isFetching && page < (dataPost?.pageSize ?? 0)){
+    const handleScroll = (e: any) => {
+        const scrollTop = e.currentTarget.scrollTop + 1500
+        const height = e.currentTarget.scrollHeight
+        if (scrollTop > height && !isFetching && page < (dataPost?.pageSize ?? 0)) {
             setPage(pre => pre + 1)
         }
-        
+
     }
-    useEffect(()=>{
-        if(data?.count)
-        dispatch(setData(data))
-    },[data])
-    useEffect(()=>{
-        return ()=>{
+    useEffect(() => {
+        if (data?.count)
+            dispatch(setData(data))
+    }, [data])
+    useEffect(() => {
+        return () => {
             dispatch(cleanPost())
         }
-    },[])
+    }, [])
     return (
         <div className="home_container main_container" onScroll={handleScroll}>
-            <CreatePost/>
+            <CreatePost />
             <div className='mt-2' >
-                {!dataPost && <ListSkeletonPost size={4}/>}
-                {dataPost && <ListPost data={dataPost}/>}
+                {!dataPost && <ListSkeletonPost size={4} />}
+                {dataPost && <ListPost data={dataPost} />}
             </div>
         </div>
     );

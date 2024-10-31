@@ -52,6 +52,7 @@ services.AddDbContext<Social_NetworkContext>(options =>
 {
     options.UseSqlServer(_configuration.GetConnectionString("MyConnect"));
 });
+
 services.AddHttpContextAccessor();
 services.AddControllers();
 services.AddAutoMapper
@@ -64,6 +65,8 @@ services.AddControllers()
       options.SerializerSettings.ReferenceLoopHandling =
         Newtonsoft.Json.ReferenceLoopHandling.Ignore
    );
+
+
 services.AddSingleton<MailUtils>();
 services.AddScoped<IUnitOfWork, UnitOfWork>();
 services.AddScoped(typeof(ICommentService), typeof(CommentService));
@@ -119,16 +122,13 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseCors(x => x
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .SetIsOriginAllowed(origin => true) // allow any origin
-        .AllowCredentials()); // allow credentials
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin
+    .AllowCredentials()); // allow credentials
 app.UseSession(); //<--- add this line
 
 app.UseStaticFiles();
@@ -147,6 +147,20 @@ app.UseEndpoints(endpoints =>
 
 });
 
+using (var scope = app.Services.CreateScope())
+{
+
+    try
+    {
+        var context = scope.ServiceProvider.GetRequiredService<Social_NetworkContext>();
+        context.Database.Migrate(); // apply all migrations
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the DB.");
+    }
+}
 
 app.Run();
 

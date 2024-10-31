@@ -1,25 +1,24 @@
-import { MediaType } from "./mediaType.type";
 
 export interface UserData {
-    username: string;
-    refreshToken?: string;
-    accessToken?: string;
-    fullName?: string;
-    birthDay?: string;
-    email?: string;
-    address?: string;
-    avatar?: string;
-    banner?: string;
-    story?: string;
-    id:number;
-  }
-
-
-export interface LoginType{
-    username: string,
-    password: string
+  username: string;
+  refreshToken?: string;
+  accessToken?: string;
+  fullName?: string;
+  birthDay?: string;
+  email?: string;
+  address?: string;
+  avatar?: string;
+  banner?: string;
+  story?: string;
+  id: number;
 }
-export interface SignUpType{
+
+
+export interface LoginType {
+  username: string,
+  password: string
+}
+export interface SignUpType {
   username: string,
   password: string,
   re_password: string,
@@ -42,7 +41,7 @@ export interface User {
   friend?: Friend;
 }
 
-export interface Friend{
+export interface Friend {
   userRequest: User;
   userAccept: User;
   userAcceptId: number;
@@ -50,7 +49,7 @@ export interface Friend{
   status: number;
 }
 
-export interface UpdateProfile{
+export interface UpdateProfile {
   avatar: File | null,
   banner: File | null,
   fullName: string,

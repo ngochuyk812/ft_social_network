@@ -1,12 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState } from '../store'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import { PaginationPost } from '../../types/post.type'
 import { authAxiosBaseQuery } from '../helperAxios'
 import { User } from '../../types/user.type'
 
 export const homeApi = createApi({
     reducerPath: 'home',
-    
+
     baseQuery: authAxiosBaseQuery(),
     endpoints: (build) => ({
         getPostByPage: build.query<PaginationPost, number>({
@@ -16,8 +15,8 @@ export const homeApi = createApi({
                     method: "GET"
                 }
             },
-            keepUnusedDataFor:0
-          }),
+            keepUnusedDataFor: 0
+        }),
         searchByQuery: build.query<User[], string>({
             query: (q) => {
                 return {
@@ -25,9 +24,9 @@ export const homeApi = createApi({
                     method: "GET"
                 }
             },
-            keepUnusedDataFor:0
-          }),
+            keepUnusedDataFor: 0
+        }),
     }),
 })
 
-export const {useGetPostByPageQuery, useSearchByQueryQuery} = homeApi
+export const { useGetPostByPageQuery, useSearchByQueryQuery } = homeApi
