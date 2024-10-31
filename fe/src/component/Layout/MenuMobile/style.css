@@ -35,8 +35,14 @@
     bottom: 0;
     right: 0;
     left: 0;
+
 }
 
+.height-mobile-menu {
+    height: 60px;
+    padding-top: 10px;
+    height: 60px;
+}
 
 @media (max-width: 1300px) {
     .mobile-menu {
