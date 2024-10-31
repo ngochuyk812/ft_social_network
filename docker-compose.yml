@@ -28,7 +28,7 @@ services:
       context: ./fe
       dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "3001:80"
     networks:
       - app-network
   
