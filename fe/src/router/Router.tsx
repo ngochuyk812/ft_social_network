@@ -15,87 +15,87 @@ import Verification from "../pages/Verification/Verification";
 import NotFound from "../pages/NotFound/NotFound";
 const Login = React.lazy(() => import('../pages/Login/Login'))
 export default function Router() {
-    
-    return (
-        <Routes>
-        <Route
-          index
-          element={
-            <React.Suspense fallback={<Loading/>}>
-                <ProtectedPage page={Home} layout ={LayoutNoRightSide}/>
 
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="login"
-          element={
-            <React.Suspense fallback={<Loading/>}>
-              <Login />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="profile/:id?"
-          element={
-            <React.Suspense fallback={<Loading/>}>
-                <ProtectedPage page={Profile} layout ={LayoutNoRightSide}/>
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="post/:q"
-          element={
-            <React.Suspense fallback={<Loading/>}>
-                <ProtectedPage page={PostDetail} layout ={LayoutNoRightSide}/>
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="search/:q?"
-          element={
-            <React.Suspense fallback={<Loading/>}>
-                <ProtectedPage page={Search} layout ={LayoutNoRightSide}/>
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="messages/:q?"
-          element={
-            <React.Suspense fallback={<Loading/>}>
-                <ProtectedPage page={Messages} layout ={LayoutNoRightSide}/>
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="friends"
-          element={
-            <React.Suspense fallback={<Loading/>}>
-                <ProtectedPage page={Friends} layout ={LayoutNoRightSide}/>
-            </React.Suspense>
-          }
-        />
+  return (
+    <Routes>
+      <Route
+        index
+        element={
+          <React.Suspense fallback={<Loading />}>
+            <ProtectedPage page={Home} layout={LayoutNoRightSide} />
 
-        <Route
-          path="notify"
-          element={
-            <React.Suspense fallback={<Loading/>}>
-                <ProtectedPage page={Notification} layout ={LayoutNoRightSide}/>
-            </React.Suspense>
-          }
-        />
+          </React.Suspense>
+        }
+      />
+      <Route
+        path="login"
+        element={
+          <React.Suspense fallback={<Loading />}>
+            <Login />
+          </React.Suspense>
+        }
+      />
+      <Route
+        path="profile/:id?"
+        element={
+          <React.Suspense fallback={<Loading />}>
+            <ProtectedPage page={Profile} layout={LayoutNoRightSide} />
+          </React.Suspense>
+        }
+      />
+      <Route
+        path="post/:q"
+        element={
+          <React.Suspense fallback={<Loading />}>
+            <ProtectedPage page={PostDetail} layout={LayoutNoRightSide} />
+          </React.Suspense>
+        }
+      />
+      <Route
+        path="search/:q?"
+        element={
+          <React.Suspense fallback={<Loading />}>
+            <ProtectedPage page={Search} layout={LayoutNoRightSide} />
+          </React.Suspense>
+        }
+      />
+      <Route
+        path="messages/:q?"
+        element={
+          <React.Suspense fallback={<Loading />}>
+            <ProtectedPage page={Messages} layout={LayoutNoRightSide} />
+          </React.Suspense>
+        }
+      />
+      <Route
+        path="friends"
+        element={
+          <React.Suspense fallback={<Loading />}>
+            <ProtectedPage page={Friends} layout={LayoutNoRightSide} />
+          </React.Suspense>
+        }
+      />
 
-        <Route
-          path="verification/:token"
-          element={
-            <React.Suspense fallback={<Loading/>}>
-              <Verification />
-            </React.Suspense>
-          }
-        />
+      <Route
+        path="notify"
+        element={
+          <React.Suspense fallback={<Loading />}>
+            <ProtectedPage page={Notification} layout={LayoutNoRightSide} />
+          </React.Suspense>
+        }
+      />
+
+      <Route
+        path="verification/:token"
+        element={
+          <React.Suspense fallback={<Loading />}>
+            <Verification />
+          </React.Suspense>
+        }
+      />
 
 
-        <Route path="*" element={<NotFound/>} />
-      </Routes>
-    );
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 }
