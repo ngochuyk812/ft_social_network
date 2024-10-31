@@ -1,11 +1,8 @@
 pipeline {
     agent none
-    environment {
-    }
     stages {
         stage("Build") {
             agent any
-            
             steps {
                 echo 'Removing existing containers if they exist...'
                 sh """
@@ -15,7 +12,7 @@ pipeline {
                 sh """
                 docker-compose build
                 """
-                sh "docker image ls "
+                sh "docker image ls"
             }
         }
         stage('Test') {
