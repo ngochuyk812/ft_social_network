@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Removing existing containers if they exist...'
                 sh """
-                docker-compose down || exit 1
+                docker-compose down -v
                 """
                 
                 echo 'Checking existence of default.conf...'
