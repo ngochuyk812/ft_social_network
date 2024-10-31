@@ -43,7 +43,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
 
         public async Task<UserDto> FindByUsernameOrEmail(string username, string email)
         {
-            var user = await unitOfWork.UserRepository.Find(t => t.Username == username || t.Email == email && t.Status == 1, null);
+            var user = await unitOfWork.UserRepository.Find(t => (t.Username == username || t.Email == email) && t.Status == 1, null);
             return mapper.Map<UserDto>(user);
         }
         public async Task<User> FindByUsername(string username)
