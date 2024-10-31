@@ -32,7 +32,7 @@ services:
     networks:
       - app-network
   
-  nginx:
+  nginx-app:
     image: nginx:latest
     ports:
       - "8010:80"
