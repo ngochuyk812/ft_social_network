@@ -8,7 +8,8 @@ pipeline {
                 sh """
                 docker-compose down
                 """
-                ssh """
+                echo 'Setting permissions for default.conf...'
+                sh """
                 chmod 644 ./nginx/default.conf
                 """
                 echo 'Building Docker images...'
