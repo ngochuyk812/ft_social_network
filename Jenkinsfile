@@ -8,6 +8,9 @@ pipeline {
                 sh """
                 docker-compose down
                 """
+                ssh """
+                chmod 644 ./nginx/default.conf
+                """
                 echo 'Building Docker images...'
                 sh """
                 docker-compose build
