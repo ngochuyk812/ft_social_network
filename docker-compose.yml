@@ -1,4 +1,4 @@
-
+version: '3.8'
 services:
   sql:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -37,7 +37,7 @@ services:
     ports:
       - "8010:80"
     volumes:
-      - ./nginx/default.conf/:/etc/nginx/conf.d/default.conf   
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - frontend
       - backend
