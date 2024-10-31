@@ -1,18 +1,12 @@
 pipeline {
     agent none
     environment {
-        DOCKER_IMAGE = "ngochuyk8/socical"
     }
     stages {
         stage("Build") {
             agent any
-            environment {
-                DOCKER_TAG = "${env.GIT_COMMIT.take(8)}"
-            }
+            
             steps {
-                script {
-                    echo "Docker Tag: ${DOCKER_TAG}"
-                }
                 echo 'Removing existing containers if they exist...'
                 sh """
                 docker-compose down
@@ -21,7 +15,7 @@ pipeline {
                 sh """
                 docker-compose build
                 """
-                sh "docker image ls | grep ${DOCKER_IMAGE}"
+                sh "docker image ls "
             }
         }
         stage('Test') {
