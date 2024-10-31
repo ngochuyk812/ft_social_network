@@ -10,7 +10,7 @@ services:
     networks:
       - app-network
     volumes:
-      - /var/volumes/mssql:/var/opt/mssql
+      - mssql:/var/opt/mssql
 
   backend:
     build:
@@ -47,3 +47,6 @@ services:
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  mssql:
