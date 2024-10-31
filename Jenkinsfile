@@ -3,11 +3,14 @@ pipeline {
     stages {
         stage("Build") {
             agent any
-            
             steps {
                 echo 'Removing existing containers if they exist...'
                 sh """
                 docker-compose down
+                """
+                echo 'Setting permissions for default.conf...'
+                sh """
+                chmod 777 ./nginx/default.conf
                 """
                 echo 'Building Docker images...'
                 sh """
