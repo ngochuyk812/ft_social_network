@@ -33,11 +33,9 @@ services:
       - app-network
   
   nginx-app:
-    image: nginx:latest
+    build: ./nginx
     ports:
       - "8010:80"
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - frontend
       - backend
