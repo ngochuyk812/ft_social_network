@@ -19,7 +19,7 @@ pipeline {
                 
                 echo 'Building Docker images...'
                 sh """
-                docker-compose build || exit 1
+                docker-compose build --no-cache || exit 1
                 """
                 
                 echo 'Listing Docker images...'
