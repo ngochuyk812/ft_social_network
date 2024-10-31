@@ -43,20 +43,20 @@ namespace BE_SOCIALNETWORK.Services.Interface
 
         public async Task<UserDto> FindByUsernameOrEmail(string username, string email)
         {
-            var user = await unitOfWork.UserRepository.Find(t=>t.Username == username || t.Email == email, null);
+            var user = await unitOfWork.UserRepository.Find(t => t.Username == username || t.Email == email && t.Status == 1, null);
             return mapper.Map<UserDto>(user);
         }
         public async Task<User> FindByUsername(string username)
         {
-            var user = await unitOfWork.UserRepository.Find(t => t.Username == username , null);
-            return user ;
-          
+            var user = await unitOfWork.UserRepository.Find(t => t.Username == username, null);
+            return user;
+
         }
 
         public async Task<SignInResponse> SignIn(string username, string password)
         {
-            var user = await unitOfWork.UserRepository.Find(t => t.Username == username , null);
-            if(user == null)
+            var user = await unitOfWork.UserRepository.Find(t => t.Username == username, null);
+            if (user == null)
             {
                 return null;
             }
@@ -105,16 +105,17 @@ namespace BE_SOCIALNETWORK.Services.Interface
                 var path = CreateLinkVeryAccount(rs);
                 path = path.Replace(".", "-");
                 path = $"{pathVerication}/{path}";
-                mailUtils.SendMailGoogleSmtp("socical@gmail.com", email, "Kích hoạt tài khoản", "Vui lòng nhấn vào link để xác nhận đăng ký thành công"+ $"<br/> <a href='{path}'>Truy cập</a>").Wait();
+                mailUtils.SendMailGoogleSmtp("socical@gmail.com", email, "Kích hoạt tài khoản", "Vui lòng nhấn vào link để xác nhận đăng ký thành công" + $"<br/> <a href='{path}'>Truy cập</a>").Wait();
                 await unitOfWork.CommitAsync();
                 return rs.Username;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 return null;
             }
 
         }
-        private string CreateLinkVeryAccount (User us )
+        private string CreateLinkVeryAccount(User us)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jWTSettings.Key + "Email"));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -132,7 +133,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
 
             string tokenRS = new JwtSecurityTokenHandler().WriteToken(token);
             return tokenRS;
-        
+
         }
 
         public async Task<bool> VeriAccount(string token)
@@ -159,7 +160,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
                     Id = int.Parse(claims.First(f => f.Type == "Id").Value),
                     Username = claims.First(f => f.Type == ClaimTypes.Name).Value
                 };
-                var item = await unitOfWork.UserRepository.Find(f=>f.Username == user.Username && f.Status == 0);
+                var item = await unitOfWork.UserRepository.Find(f => f.Username == user.Username && f.Status == 0);
                 if (item == null) return false;
                 item.Status = 1;
                 unitOfWork.UserRepository.Update(item);
@@ -188,10 +189,10 @@ namespace BE_SOCIALNETWORK.Services.Interface
             if (idMe == null) return null;
             var item = await unitOfWork.UserRepository.Find(f => f.Id == id);
             var rs = mapper.Map<InfoUserDto>(item);
-            
-            var  friend = await unitOfWork.FriendRepository.Find(f=>(f.UserRequestId == idMe.Id && f.UserAcceptId == id) || (f.UserAcceptId == idMe.Id && f.UserRequestId == id));
-            if(friend != null)
-            rs.Friend = mapper.Map<FriendDto>(friend);
+
+            var friend = await unitOfWork.FriendRepository.Find(f => (f.UserRequestId == idMe.Id && f.UserAcceptId == id) || (f.UserAcceptId == idMe.Id && f.UserRequestId == id));
+            if (friend != null)
+                rs.Friend = mapper.Map<FriendDto>(friend);
             if (item == null)
             {
                 return null;
@@ -206,7 +207,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
             if (user == null) return null;
             var pathAvatar = "";
             var pathBanner = "";
-            if(request.Banner != null)
+            if (request.Banner != null)
             {
                 if (!string.IsNullOrEmpty(user.Banner))
                 {
@@ -215,7 +216,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
 
                 }
                 else
-                    pathBanner = (await s3Service.UploadFileToS3(request.Banner, "user",null,S3CannedACL.PublicRead)).Src;
+                    pathBanner = (await s3Service.UploadFileToS3(request.Banner, "user", null, S3CannedACL.PublicRead)).Src;
                 user.Banner = pathBanner;
             }
             if (request.Avatar != null)
@@ -233,7 +234,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
 
             user.FullName = request.FullName;
 
-            if(!string.IsNullOrEmpty(request.PasswordNew))
+            if (!string.IsNullOrEmpty(request.PasswordNew))
             {
                 string hashPassword = SecretHasher.Hash(request.PasswordNew);
                 user.Password = hashPassword;
@@ -247,7 +248,7 @@ namespace BE_SOCIALNETWORK.Services.Interface
 
         public async Task<bool> UpdatePassword(string email, string password)
         {
-            var find = await unitOfWork.UserRepository.Find(f=>f.Email == email);
+            var find = await unitOfWork.UserRepository.Find(f => f.Email == email);
             if (find == null)
                 return false;
 
