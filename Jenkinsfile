@@ -4,19 +4,31 @@ pipeline {
         stage("Build") {
             agent any
             steps {
-                echo 'Removing existing containers if they exist...'
+                 script {
+                    echo 'Getting commit ID...'
+                    TAGNAME = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+                }
+                echo "Using TAGNAME: ${TAGNAME}"
+
+                echo 'Clean data not using...'
                 sh """
-                docker-compose down
-                """
-                echo 'Setting permissions for default.conf...'
-                sh """
-                chmod 777 ./nginx/default.conf
+                docker system prune -f
                 """
                 echo 'Building Docker images...'
                 sh """
-                docker-compose build
+                docker build -t ngochuyk8/social-network:${TAGNAME} .
                 """
                 sh "docker image ls"
+                
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+
+                    sh """
+                    docker push ngochuyk8/social-network:${TAGNAME}
+                    """
+
+                }
+                sh "docker image rm ngochuyk8/social-network:${TAGNAME}"
             }
         }
         stage('Test') {
@@ -29,9 +41,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running the containers...'
-                    sh """
-                    docker-compose up -d
-                    """
+                   
                 }
             }
         }
