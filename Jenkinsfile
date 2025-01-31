@@ -17,7 +17,7 @@ pipeline {
                 script {
                     echo "Docker Tag: ${env.DOCKER_IMAGE}"
                 }
-                sh "docker build -t ${env.DOCKER_IMAGE} ."
+                sh "cd be && docker build -t ${env.DOCKER_IMAGE} ."
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
                     sh "docker push ${env.DOCKER_IMAGE}"
@@ -33,7 +33,6 @@ pipeline {
                 }
                 script {
                     sh 'cd devops && ls -la'
-                    
                     echo "Deleting the K8s...: ngochuyk8/${env.BRANCH_NAME}/${DOCKER_NAME_IMAGE}:${BUILD_ID}"
                     def pipelineK8s = load 'devops/Jenkinsfile'
                     pipelineK8s.run("${DOCKER_NAME_IMAGE}", DOCKER_IMAGE, 'devops', ".net", env.ENV_DEPLOY) 
@@ -58,7 +57,7 @@ pipeline {
                 script {
                     echo "Docker Tag: ${env.DOCKER_IMAGE}"
                 }
-                sh "docker build -t ${env.DOCKER_IMAGE} ."
+                sh "cd fe && docker build -t ${env.DOCKER_IMAGE} ."
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
                     sh "docker push ${env.DOCKER_IMAGE}"
