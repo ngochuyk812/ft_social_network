@@ -1,10 +1,6 @@
-pipeline {
-    agent none
-    environment{
-        DOCKER_NAME_IMAGE = "social-network-be"
-    }
-    stages {
-        stage('Set Environment') {
+def stage() {
+    def DOCKER_NAME_IMAGE = "social-network-be"
+    stage('Set Environment') {
             agent any
             steps {
                 script {
@@ -60,5 +56,5 @@ pipeline {
                    }
             }
         }
-    }
 }
+return this

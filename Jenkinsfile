@@ -8,7 +8,8 @@ pipeline {
 
             steps {
                 script {
-                    load 'be/Jenkinsfile'
+                    def be = load 'be/Jenkinsfile'
+                    be.stage()
                 }
             }
         }
@@ -16,7 +17,8 @@ pipeline {
             agent any
             steps {
                 script {
-                    load 'fe/Jenkinsfile'
+                    def fe = load 'fe/Jenkinsfile'
+                    fe.stage()
                 }
             }
         }
